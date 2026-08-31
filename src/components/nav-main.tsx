@@ -2,6 +2,7 @@ import {type LucideIcon, MoreHorizontal} from "lucide-react"
 
 import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger,} from "@/components/ui/dropdown-menu"
 import {SidebarGroup, SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar,} from "@/components/ui/sidebar"
+import {Link} from "@tanstack/react-router"
 
 export function NavMain({
                             items,
@@ -39,7 +40,9 @@ export function NavMain({
                                 >
                                     {item.items.map((item) => (
                                         <DropdownMenuItem asChild key={item.title}>
-                                            <a href={item.url}>{item.title}</a>
+                                            <Link to={item.url}>
+                                                {item.title}
+                                            </Link>
                                         </DropdownMenuItem>
                                     ))}
                                 </DropdownMenuContent>

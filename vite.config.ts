@@ -1,19 +1,24 @@
 import path from "path";
 import tailwindcss from "@tailwindcss/vite";
-import react, { reactCompilerPreset } from "@vitejs/plugin-react";
+import react, {reactCompilerPreset} from "@vitejs/plugin-react";
 import babel from "@rolldown/plugin-babel";
-import { defineConfig } from "vite";
+import {defineConfig} from "vite";
+import {tanstackRouter} from '@tanstack/router-vite-plugin';
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [
-    react(),
-    babel({ presets: [reactCompilerPreset()] }),
-    tailwindcss(),
-  ],
-  resolve: {
-    alias: {
-      "@": path.resolve(import.meta.dirname, "./src"),
+    plugins: [
+        tanstackRouter({
+            target: 'react',
+            autoCodeSplitting: true,
+        }),
+        react(),
+        babel({presets: [reactCompilerPreset()]}),
+        tailwindcss(),
+    ],
+    resolve: {
+        alias: {
+            "@": path.resolve(import.meta.dirname, "./src"),
+        },
     },
-  },
 });

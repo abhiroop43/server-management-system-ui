@@ -12,12 +12,13 @@ import {
     SidebarMenuItem,
     SidebarRail,
 } from "@/components/ui/sidebar"
+import {Link} from "@tanstack/react-router";
 
 const data = {
     navMain: [
         {
             title: "Home",
-            url: "/home"
+            url: "/"
         },
         {
             title: "Servers",
@@ -47,7 +48,7 @@ export function AppSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
-                            <a href="#">
+                            <Link to="/">
                                 <div
                                     className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
                                     <Server className="size-4"/>
@@ -56,7 +57,7 @@ export function AppSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
                                     <span className="font-medium">Server Mgmt</span>
                                     <span className="">v1.0.0</span>
                                 </div>
-                            </a>
+                            </Link>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
                 </SidebarMenu>
