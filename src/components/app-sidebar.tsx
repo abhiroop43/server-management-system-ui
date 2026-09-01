@@ -1,5 +1,5 @@
 import * as React from "react"
-import {Server} from "lucide-react"
+import {MoonStar, Server, Sun} from "lucide-react"
 
 import {NavMain} from "@/components/nav-main"
 import {
@@ -14,6 +14,8 @@ import {
 } from "@/components/ui/sidebar"
 import {Link} from "@tanstack/react-router";
 import type {FileRouteTypes} from "@/routeTree.gen";
+import {Button} from "@/components/ui/button.tsx";
+import {useTheme} from "@/components/theme-provider"
 
 const data: {
     navMain: {
@@ -42,6 +44,8 @@ const data: {
 }
 
 export function AppSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
+    const {setTheme} = useTheme()
+
     return (
         <Sidebar {...props}>
             <SidebarHeader>
@@ -66,6 +70,10 @@ export function AppSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
                 <NavMain items={data.navMain}/>
             </SidebarContent>
             <SidebarFooter>
+                <div className={'flex justify-between'}>
+                    <Button variant={'neutral'} onClick={() => setTheme("light")}><Sun/> Light</Button>
+                    <Button onClick={() => setTheme("dark")}><MoonStar/> Dark</Button>
+                </div>
             </SidebarFooter>
             <SidebarRail/>
         </Sidebar>
