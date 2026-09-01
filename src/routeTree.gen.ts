@@ -8,70 +8,115 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as ServersRouteImport } from './routes/servers'
+import {Route as rootRouteImport} from './routes/__root'
+import {Route as IndexRouteImport} from './routes/index'
+import {Route as LookupsConfigurationRouteImport} from './routes/lookups-configuration'
+import {Route as ServersRouteImport} from './routes/servers'
+import {Route as UsersManagementRouteImport} from './routes/users-management'
 
 const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
+    id: '/',
+    path: '/',
+    getParentRoute: () => rootRouteImport,
+} as any)
+const LookupsConfigurationRoute = LookupsConfigurationRouteImport.update({
+    id: '/lookups-configuration',
+    path: '/lookups-configuration',
+    getParentRoute: () => rootRouteImport,
 } as any)
 const ServersRoute = ServersRouteImport.update({
-  id: '/servers',
-  path: '/servers',
-  getParentRoute: () => rootRouteImport,
+    id: '/servers',
+    path: '/servers',
+    getParentRoute: () => rootRouteImport,
+} as any)
+const UsersManagementRoute = UsersManagementRouteImport.update({
+    id: '/users-management',
+    path: '/users-management',
+    getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/servers': typeof ServersRoute
+    '/': typeof IndexRoute
+    '/lookups-configuration': typeof LookupsConfigurationRoute
+    '/servers': typeof ServersRoute
+    '/users-management': typeof UsersManagementRoute
 }
+
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/servers': typeof ServersRoute
+    '/': typeof IndexRoute
+    '/lookups-configuration': typeof LookupsConfigurationRoute
+    '/servers': typeof ServersRoute
+    '/users-management': typeof UsersManagementRoute
 }
+
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/servers': typeof ServersRoute
+    __root__: typeof rootRouteImport
+    '/': typeof IndexRoute
+    '/lookups-configuration': typeof LookupsConfigurationRoute
+    '/servers': typeof ServersRoute
+    '/users-management': typeof UsersManagementRoute
 }
+
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/servers'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/servers'
-  id: '__root__' | '/' | '/servers'
-  fileRoutesById: FileRoutesById
+    fileRoutesByFullPath: FileRoutesByFullPath
+    fullPaths: '/' | '/lookups-configuration' | '/servers' | '/users-management'
+    fileRoutesByTo: FileRoutesByTo
+    to: '/' | '/lookups-configuration' | '/servers' | '/users-management'
+    id:
+        | '__root__'
+        | '/'
+        | '/lookups-configuration'
+        | '/servers'
+        | '/users-management'
+    fileRoutesById: FileRoutesById
 }
+
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  ServersRoute: typeof ServersRoute
+    IndexRoute: typeof IndexRoute
+    LookupsConfigurationRoute: typeof LookupsConfigurationRoute
+    ServersRoute: typeof ServersRoute
+    UsersManagementRoute: typeof UsersManagementRoute
 }
 
 declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+    interface FileRoutesByPath {
+        '/': {
+            id: '/'
+            path: '/'
+            fullPath: '/'
+            preLoaderRoute: typeof IndexRouteImport
+            parentRoute: typeof rootRouteImport
+        }
+        '/lookups-configuration': {
+            id: '/lookups-configuration'
+            path: '/lookups-configuration'
+            fullPath: '/lookups-configuration'
+            preLoaderRoute: typeof LookupsConfigurationRouteImport
+            parentRoute: typeof rootRouteImport
+        }
+        '/servers': {
+            id: '/servers'
+            path: '/servers'
+            fullPath: '/servers'
+            preLoaderRoute: typeof ServersRouteImport
+            parentRoute: typeof rootRouteImport
+        }
+        '/users-management': {
+            id: '/users-management'
+            path: '/users-management'
+            fullPath: '/users-management'
+            preLoaderRoute: typeof UsersManagementRouteImport
+            parentRoute: typeof rootRouteImport
+        }
     }
-    '/servers': {
-      id: '/servers'
-      path: '/servers'
-      fullPath: '/servers'
-      preLoaderRoute: typeof ServersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-  }
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  ServersRoute: ServersRoute,
+    IndexRoute: IndexRoute,
+    LookupsConfigurationRoute: LookupsConfigurationRoute,
+    ServersRoute: ServersRoute,
+    UsersManagementRoute: UsersManagementRoute,
 }
 export const routeTree = rootRouteImport
-  ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+    ._addFileChildren(rootRouteChildren)
+    ._addFileTypes<FileRouteTypes>()

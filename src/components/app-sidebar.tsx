@@ -13,8 +13,14 @@ import {
     SidebarRail,
 } from "@/components/ui/sidebar"
 import {Link} from "@tanstack/react-router";
+import type {FileRouteTypes} from "@/routeTree.gen";
 
-const data = {
+const data: {
+    navMain: {
+        title: string
+        url: FileRouteTypes["to"]
+    }[]
+} = {
     navMain: [
         {
             title: "Home",
@@ -25,18 +31,12 @@ const data = {
             url: "/servers",
         },
         {
-            title: "Administration",
-            url: "#",
-            items: [
-                {
-                    title: "Users",
-                    url: "/administration/users",
-                },
-                {
-                    title: "Lookups",
-                    url: "/administration/lookups",
-                },
-            ],
+            title: "User Management",
+            url: "/users-management",
+        },
+        {
+            title: "Lookups Configuration",
+            url: "/lookups-configuration",
         },
     ],
 }

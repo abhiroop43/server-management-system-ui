@@ -1,55 +1,42 @@
-import {type LucideIcon, MoreHorizontal} from "lucide-react"
+import {type LucideIcon} from "lucide-react"
 
-import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger,} from "@/components/ui/dropdown-menu"
-import {SidebarGroup, SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar,} from "@/components/ui/sidebar"
-import {Link} from "@tanstack/react-router"
+import {SidebarGroup, SidebarMenu, SidebarMenuButton, SidebarMenuItem,} from "@/components/ui/sidebar"
+import {Link, useMatchRoute} from "@tanstack/react-router"
+import type {FileRouteTypes} from "@/routeTree.gen";
 
 export function NavMain({
                             items,
-                        }: {
+                        }: Readonly<{
     items: {
         title: string
-        url: string
+        url: FileRouteTypes["to"]
         icon?: LucideIcon
         isActive?: boolean
-        items?: {
-            title: string
-            url: string
-        }[]
     }[]
-}) {
-    const {isMobile} = useSidebar()
+}>) {
+
+    const matchRoute = useMatchRoute()
 
     return (
         <SidebarGroup>
             <SidebarMenu>
-                {items.map((item) => (
-                    <DropdownMenu key={item.title}>
-                        <SidebarMenuItem>
-                            <DropdownMenuTrigger asChild>
-                                <SidebarMenuButton
-                                    className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
-                                    {item.title} <MoreHorizontal className="ml-auto"/>
-                                </SidebarMenuButton>
-                            </DropdownMenuTrigger>
-                            {item.items?.length ? (
-                                <DropdownMenuContent
-                                    side={isMobile ? "bottom" : "right"}
-                                    align={isMobile ? "end" : "start"}
-                                    className="min-w-56 rounded-lg"
-                                >
-                                    {item.items.map((item) => (
-                                        <DropdownMenuItem asChild key={item.title}>
-                                            <Link to={item.url}>
-                                                {item.title}
-                                            </Link>
-                                        </DropdownMenuItem>
-                                    ))}
-                                </DropdownMenuContent>
-                            ) : null}
+                {items.map((item) => {
+                    const isActive = !!matchRoute({to: item.url})
+
+                    return (
+                        <SidebarMenuItem key={item.title}>
+                            <SidebarMenuButton asChild isActive={isActive} className={
+                                isActive
+                                    ? "rounded-full border-2 border-border bg-main text-main-foreground hover:bg-main hover:text-main-foreground"
+                                    : "hover:bg-background"
+                            }>
+                                <Link to={item.url}>
+                                    {item.title}
+                                </Link>
+                            </SidebarMenuButton>
                         </SidebarMenuItem>
-                    </DropdownMenu>
-                ))}
+                    );
+                })}
             </SidebarMenu>
         </SidebarGroup>
     )
