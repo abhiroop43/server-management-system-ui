@@ -8,115 +8,182 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import {Route as rootRouteImport} from './routes/__root'
-import {Route as IndexRouteImport} from './routes/index'
-import {Route as LookupsConfigurationRouteImport} from './routes/lookups-configuration'
-import {Route as ServersRouteImport} from './routes/servers'
-import {Route as UsersManagementRouteImport} from './routes/users-management'
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as LookupsConfigurationRouteImport } from './routes/lookups-configuration'
+import { Route as ServersRouteImport } from './routes/servers'
+import { Route as SignupRouteImport } from './routes/signup'
+import { Route as UsersManagementRouteImport } from './routes/users-management'
 
 const IndexRoute = IndexRouteImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () => rootRouteImport,
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const LookupsConfigurationRoute = LookupsConfigurationRouteImport.update({
-    id: '/lookups-configuration',
-    path: '/lookups-configuration',
-    getParentRoute: () => rootRouteImport,
+  id: '/lookups-configuration',
+  path: '/lookups-configuration',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ServersRoute = ServersRouteImport.update({
-    id: '/servers',
-    path: '/servers',
-    getParentRoute: () => rootRouteImport,
+  id: '/servers',
+  path: '/servers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const UsersManagementRoute = UsersManagementRouteImport.update({
-    id: '/users-management',
-    path: '/users-management',
-    getParentRoute: () => rootRouteImport,
+  id: '/users-management',
+  path: '/users-management',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
-    '/': typeof IndexRoute
-    '/lookups-configuration': typeof LookupsConfigurationRoute
-    '/servers': typeof ServersRoute
-    '/users-management': typeof UsersManagementRoute
+  '/': typeof IndexRoute
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/login': typeof LoginRoute
+  '/lookups-configuration': typeof LookupsConfigurationRoute
+  '/servers': typeof ServersRoute
+  '/signup': typeof SignupRoute
+  '/users-management': typeof UsersManagementRoute
 }
-
 export interface FileRoutesByTo {
-    '/': typeof IndexRoute
-    '/lookups-configuration': typeof LookupsConfigurationRoute
-    '/servers': typeof ServersRoute
-    '/users-management': typeof UsersManagementRoute
+  '/': typeof IndexRoute
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/login': typeof LoginRoute
+  '/lookups-configuration': typeof LookupsConfigurationRoute
+  '/servers': typeof ServersRoute
+  '/signup': typeof SignupRoute
+  '/users-management': typeof UsersManagementRoute
 }
-
 export interface FileRoutesById {
-    __root__: typeof rootRouteImport
-    '/': typeof IndexRoute
-    '/lookups-configuration': typeof LookupsConfigurationRoute
-    '/servers': typeof ServersRoute
-    '/users-management': typeof UsersManagementRoute
+  __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/login': typeof LoginRoute
+  '/lookups-configuration': typeof LookupsConfigurationRoute
+  '/servers': typeof ServersRoute
+  '/signup': typeof SignupRoute
+  '/users-management': typeof UsersManagementRoute
 }
-
 export interface FileRouteTypes {
-    fileRoutesByFullPath: FileRoutesByFullPath
-    fullPaths: '/' | '/lookups-configuration' | '/servers' | '/users-management'
-    fileRoutesByTo: FileRoutesByTo
-    to: '/' | '/lookups-configuration' | '/servers' | '/users-management'
-    id:
-        | '__root__'
-        | '/'
-        | '/lookups-configuration'
-        | '/servers'
-        | '/users-management'
-    fileRoutesById: FileRoutesById
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths:
+    | '/'
+    | '/forgot-password'
+    | '/login'
+    | '/lookups-configuration'
+    | '/servers'
+    | '/signup'
+    | '/users-management'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/'
+    | '/forgot-password'
+    | '/login'
+    | '/lookups-configuration'
+    | '/servers'
+    | '/signup'
+    | '/users-management'
+  id:
+    | '__root__'
+    | '/'
+    | '/forgot-password'
+    | '/login'
+    | '/lookups-configuration'
+    | '/servers'
+    | '/signup'
+    | '/users-management'
+  fileRoutesById: FileRoutesById
 }
-
 export interface RootRouteChildren {
-    IndexRoute: typeof IndexRoute
-    LookupsConfigurationRoute: typeof LookupsConfigurationRoute
-    ServersRoute: typeof ServersRoute
-    UsersManagementRoute: typeof UsersManagementRoute
+  IndexRoute: typeof IndexRoute
+  ForgotPasswordRoute: typeof ForgotPasswordRoute
+  LoginRoute: typeof LoginRoute
+  LookupsConfigurationRoute: typeof LookupsConfigurationRoute
+  ServersRoute: typeof ServersRoute
+  SignupRoute: typeof SignupRoute
+  UsersManagementRoute: typeof UsersManagementRoute
 }
 
 declare module '@tanstack/react-router' {
-    interface FileRoutesByPath {
-        '/': {
-            id: '/'
-            path: '/'
-            fullPath: '/'
-            preLoaderRoute: typeof IndexRouteImport
-            parentRoute: typeof rootRouteImport
-        }
-        '/lookups-configuration': {
-            id: '/lookups-configuration'
-            path: '/lookups-configuration'
-            fullPath: '/lookups-configuration'
-            preLoaderRoute: typeof LookupsConfigurationRouteImport
-            parentRoute: typeof rootRouteImport
-        }
-        '/servers': {
-            id: '/servers'
-            path: '/servers'
-            fullPath: '/servers'
-            preLoaderRoute: typeof ServersRouteImport
-            parentRoute: typeof rootRouteImport
-        }
-        '/users-management': {
-            id: '/users-management'
-            path: '/users-management'
-            fullPath: '/users-management'
-            preLoaderRoute: typeof UsersManagementRouteImport
-            parentRoute: typeof rootRouteImport
-        }
+  interface FileRoutesByPath {
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
     }
+    '/forgot-password': {
+      id: '/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof ForgotPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lookups-configuration': {
+      id: '/lookups-configuration'
+      path: '/lookups-configuration'
+      fullPath: '/lookups-configuration'
+      preLoaderRoute: typeof LookupsConfigurationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/servers': {
+      id: '/servers'
+      path: '/servers'
+      fullPath: '/servers'
+      preLoaderRoute: typeof ServersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/users-management': {
+      id: '/users-management'
+      path: '/users-management'
+      fullPath: '/users-management'
+      preLoaderRoute: typeof UsersManagementRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+  }
 }
 
 const rootRouteChildren: RootRouteChildren = {
-    IndexRoute: IndexRoute,
-    LookupsConfigurationRoute: LookupsConfigurationRoute,
-    ServersRoute: ServersRoute,
-    UsersManagementRoute: UsersManagementRoute,
+  IndexRoute: IndexRoute,
+  ForgotPasswordRoute: ForgotPasswordRoute,
+  LoginRoute: LoginRoute,
+  LookupsConfigurationRoute: LookupsConfigurationRoute,
+  ServersRoute: ServersRoute,
+  SignupRoute: SignupRoute,
+  UsersManagementRoute: UsersManagementRoute,
 }
 export const routeTree = rootRouteImport
-    ._addFileChildren(rootRouteChildren)
-    ._addFileTypes<FileRouteTypes>()
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>()
