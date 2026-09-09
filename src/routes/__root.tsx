@@ -1,4 +1,4 @@
-import {createRootRoute, Outlet, useMatches} from '@tanstack/react-router'
+import {createRootRouteWithContext, Outlet, useMatches} from '@tanstack/react-router'
 import {TanStackRouterDevtools} from '@tanstack/react-router-devtools'
 import {AppSidebar} from "@/components/app-sidebar.tsx";
 import {SidebarInset, SidebarProvider, SidebarTrigger} from "@/components/ui/sidebar.tsx";
@@ -13,7 +13,6 @@ import {
 } from "@/components/ui/breadcrumb.tsx";
 import {UserAvatar} from "@/components/user-avatar.tsx";
 import {ThemeProvider} from "@/components/theme-provider"
-import {useState} from "react";
 
 const RootLayout = () => {
 
@@ -23,7 +22,8 @@ const RootLayout = () => {
     const currentRouteId = matches.at(-1)?.routeId
     let routeName = '';
 
-    const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+    const context = Route.useRouteContext()
 
     if (currentRouteId === "/") {
         routeName = 'Home';
@@ -35,7 +35,8 @@ const RootLayout = () => {
         routeName = 'Lookups Configuration';
     }
 
-    return (isAuthenticated ?
+
+    return (context.auth.isAuthenticated ?
             <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
                 <SidebarProvider>
                     <AppSidebar/>
@@ -83,4 +84,15 @@ const RootLayout = () => {
     );
 }
 
-export const Route = createRootRoute({component: RootLayout})
+interface AuthState {
+    isAuthenticated: boolean
+    user: { id: string; username: string; email: string } | null
+    login: (username: string, password: string) => Promise<void>
+    logout: () => void
+}
+
+interface MyRouterContext {
+    auth: AuthState
+}
+
+export const Route = createRootRouteWithContext<MyRouterContext>()({component: RootLayout})
