@@ -1,6 +1,6 @@
 import {createFileRoute, Link} from '@tanstack/react-router'
 import {Server} from "lucide-react";
-import loginImage from "@/assets/login.png";
+import registerImage from "@/assets/register.jpg";
 import {RegisterForm} from "@/components/register-form.tsx";
 
 export const Route = createFileRoute('/signup')({
@@ -29,7 +29,7 @@ function Signup() {
                 </div>
                 <div className="relative hidden bg-muted lg:block">
                     <img alt={"login banner"}
-                         src={loginImage}
+                         src={registerImage}
                          className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
                     />
                 </div>

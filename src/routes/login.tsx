@@ -1,13 +1,42 @@
-import {createFileRoute, Link} from '@tanstack/react-router'
-import loginImage from '../assets/login.png'
+import {createFileRoute, Link, useNavigate} from '@tanstack/react-router'
+import loginImage from '../assets/login.jpg'
 import {Server} from "lucide-react";
 import {LoginForm} from "@/components/login-form.tsx";
+import React from "react";
 
 export const Route = createFileRoute('/login')({
+    validateSearch: (search: Record<string, unknown>) => ({
+        redirect: typeof search.redirect === 'string' ? search.redirect : '/',
+    }),
     component: Login,
 })
 
 function Login() {
+    const auth = Route.useRouteContext().auth
+    const navigate = useNavigate()
+    const {redirect} = Route.useSearch()
+
+    const onSubmit = async (event: React.SubmitEvent<HTMLFormElement>) => {
+        event.preventDefault()
+        const formData = new FormData(event.currentTarget)
+        const email = formData.get("email") as string
+        const password = formData.get("password") as string
+
+        console.log(email, password)
+
+        try {
+            await auth.login(email, password)
+
+            await navigate({
+                to: redirect,
+                replace: true,
+            })
+        } catch (error) {
+            console.error(error)
+            // show toast notification
+        }
+    }
+
     return (
         <main>
             <div className="grid min-h-svh lg:grid-cols-2">
@@ -23,7 +52,7 @@ function Login() {
                     </div>
                     <div className="flex flex-1 items-center justify-center">
                         <div className="w-full max-w-xs">
-                            <LoginForm/>
+                            <LoginForm onSubmit={onSubmit}/>
                         </div>
                     </div>
                 </div>

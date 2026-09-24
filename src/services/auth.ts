@@ -1,5 +1,7 @@
-export async function login(email: string, password: string) {
-    const response = await fetch('/api/login', {
+const API_BASE_URL = 'https://abhiroop43-server-mgmt-api-fpgyh9bsd0caevah.canadacentral-01.azurewebsites.net'
+
+export async function loginUser(email: string, password: string) {
+    const response = await fetch(`${API_BASE_URL}/auth/login`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({email, password}),

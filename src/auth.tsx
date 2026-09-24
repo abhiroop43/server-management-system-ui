@@ -1,4 +1,5 @@
 import React, {createContext, useContext, useEffect, useState} from 'react'
+import {getUser, loginUser} from "@/services/auth.ts";
 
 interface User {
     id: string
@@ -58,22 +59,10 @@ export function AuthProvider({children}: Readonly<{ children: React.ReactNode }>
     }
 
     const login = async (username: string, password: string) => {
-        // Replace with your authentication logic
-        const response = await fetch('/api/login', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({username, password}),
-        })
+        await loginUser(username, password)
 
-        if (response.ok) {
-            const userData = await response.json()
-            setUser(userData)
-            setIsAuthenticated(true)
-            // Store token for persistence
-            localStorage.setItem('auth-token', userData.token)
-        } else {
-            throw new Error('Authentication failed')
-        }
+        setUser(getUser())
+        setIsAuthenticated(true)
     }
 
     const logout = () => {
