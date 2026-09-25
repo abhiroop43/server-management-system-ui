@@ -12,8 +12,15 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import {logout} from "@/services/auth.ts";
+
+function logoutUser() {
+    logout();
+    window.location.reload();
+}
 
 export function UserAvatar() {
+
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -38,7 +45,7 @@ export function UserAvatar() {
                     </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator/>
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={logoutUser}>
                     <LogOutIcon/>
                     Sign Out
                 </DropdownMenuItem>

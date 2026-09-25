@@ -1,4 +1,4 @@
-import {createFileRoute, Link, useNavigate} from '@tanstack/react-router'
+import {createFileRoute, Link, useNavigate, useRouter} from '@tanstack/react-router'
 import loginImage from '../assets/login.jpg'
 import {Server} from "lucide-react";
 import {LoginForm} from "@/components/login-form.tsx";
@@ -14,6 +14,7 @@ export const Route = createFileRoute('/login')({
 function Login() {
     const auth = Route.useRouteContext().auth
     const navigate = useNavigate()
+    const router = useRouter()
     const {redirect} = Route.useSearch()
 
     const onSubmit = async (event: React.SubmitEvent<HTMLFormElement>) => {
@@ -26,6 +27,7 @@ function Login() {
 
         try {
             await auth.login(email, password)
+            await router.invalidate()
 
             await navigate({
                 to: redirect,

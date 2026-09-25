@@ -71,7 +71,7 @@ const RootLayout = () => {
                             <div className="min-h-screen flex-1 rounded-xl bg-muted/50 md:min-h-min">
                                 <main>
                                     <Outlet/>
-                                    <TanStackRouterDevtools/>
+                                    {/*<TanStackRouterDevtools/>*/}
                                 </main>
                             </div>
                         </div>

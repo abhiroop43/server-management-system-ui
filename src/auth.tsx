@@ -1,5 +1,5 @@
 import React, {createContext, useContext, useEffect, useState} from 'react'
-import {getUser, loginUser} from "@/services/auth.ts";
+import {getUser, loginUser, validateToken} from "@/services/auth.ts";
 
 interface User {
     id: string
@@ -17,37 +17,47 @@ interface AuthState {
 const AuthContext = createContext<AuthState | undefined>(undefined)
 
 export function AuthProvider({children}: Readonly<{ children: React.ReactNode }>) {
+    const initialToken = localStorage.getItem('auth-token')
+
     const [user, setUser] = useState<User | null>(null)
     const [isAuthenticated, setIsAuthenticated] = useState(false)
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(() => Boolean(initialToken))
 
     // Restore auth state on app load
     useEffect(() => {
-        const token = localStorage.getItem('auth-token')
-        if (token) {
-            // Validate token with your API
-            fetch('/api/validate-token', {
-                headers: {Authorization: `Bearer ${token}`},
-            })
-                .then((response) => response.json())
-                .then((userData) => {
-                    if (userData.valid) {
-                        setUser(userData.user)
-                        setIsAuthenticated(true)
-                    } else {
-                        localStorage.removeItem('auth-token')
-                    }
-                })
-                .catch(() => {
-                    localStorage.removeItem('auth-token')
-                })
-                .finally(() => {
-                    setIsLoading(false)
-                })
-        } else {
-            setIsLoading(false)
+        if (!initialToken) {
+            return
         }
-    }, [])
+
+        let cancelled = false
+
+        validateToken(initialToken)
+            .then((response) => response.json())
+            .then((userData) => {
+                if (cancelled) {
+                    return
+                }
+
+                if (userData.valid) {
+                    setUser(userData.user)
+                    setIsAuthenticated(true)
+                } else {
+                    localStorage.removeItem('auth-token')
+                }
+            })
+            .catch(() => {
+                localStorage.removeItem('auth-token')
+            })
+            .finally(() => {
+                if (!cancelled) {
+                    setIsLoading(false)
+                }
+            })
+
+        return () => {
+            cancelled = true
+        }
+    }, [initialToken])
 
     // Show loading state while checking auth
     if (isLoading) {

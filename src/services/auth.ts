@@ -17,6 +17,15 @@ export async function loginUser(email: string, password: string) {
     }
 }
 
+export async function validateToken(token: string): Promise<Response> {
+    // console.log('Validating token:', token)
+    return await fetch(`${API_BASE_URL}/auth/validate`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`},
+        body: JSON.stringify({token}),
+    })
+}
+
 export function checkAuthStatus(): boolean {
     return !!localStorage.getItem('auth-token')
 }
