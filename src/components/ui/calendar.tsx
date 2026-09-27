@@ -29,7 +29,18 @@ function Calendar({
                 month: "flex flex-col gap-4",
                 caption:
                     "flex justify-center pt-1 relative items-center w-full text-main-foreground",
-                caption_label: "text-sm font-heading",
+                caption_label:
+                    props.captionLayout === "dropdown" ||
+                    props.captionLayout === "dropdown-buttons"
+                        ? "hidden"
+                        : "text-sm font-heading",
+                caption_dropdowns: "flex items-center justify-center gap-2",
+                dropdown_month: "relative",
+                dropdown_year: "relative",
+                dropdown:
+                    "h-8 rounded-base border-2 border-border bg-background px-2 py-1 text-sm font-base text-foreground shadow-shadow outline-none",
+                dropdown_icon: "hidden",
+                vhidden: "sr-only",
                 nav: "gap-1 flex items-center",
                 nav_button: cn(
                     buttonVariants({variant: "noShadow"}),

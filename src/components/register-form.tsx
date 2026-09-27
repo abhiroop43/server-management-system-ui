@@ -51,7 +51,7 @@ export function RegisterForm({
                         <PopoverTrigger asChild>
                             <Button
                                 variant="noShadow"
-                                className="w-[280px] justify-start text-left font-base"
+                                className="w-70 justify-start text-left font-base"
                             >
                                 <CalendarIcon/>
                                 {date ? format(date, "PPP") : <span>Pick a date</span>}
@@ -62,6 +62,9 @@ export function RegisterForm({
                                 mode="single"
                                 selected={date}
                                 onSelect={setDate}
+                                captionLayout={"dropdown"}
+                                fromYear={1900}
+                                toYear={new Date().getFullYear()}
                                 initialFocus
                             />
                         </PopoverContent>
@@ -75,7 +78,7 @@ export function RegisterForm({
 
                     <FieldDescription className="text-center">
                         Already have an account?{" "}
-                        <Link to={"/login"} className="underline underline-offset-4">
+                        <Link to={"/login"} className="underline underline-offset-4" search={{redirect: ""}}>
                             Login
                         </Link>
                     </FieldDescription>
