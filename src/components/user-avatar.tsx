@@ -3,7 +3,6 @@
 import {BadgeCheckIcon, BellIcon, CreditCardIcon, LogOutIcon,} from "lucide-react"
 
 import {Avatar, AvatarFallback, AvatarImage,} from "@/components/ui/avatar"
-import {Button} from "@/components/ui/button"
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -23,11 +22,13 @@ export function UserAvatar() {
 
     return (
         <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-                <Button variant="neutral" size="icon" className="rounded-full"><Avatar>
-                    <AvatarImage src="https://github.com/shadcn.png" alt="shadcn"/>
-                    <AvatarFallback>LR</AvatarFallback>
-                </Avatar></Button>
+            <DropdownMenuTrigger>
+                <span className="inline-flex size-9 items-center justify-center rounded-full">
+                    <Avatar>
+                        <AvatarImage src="https://github.com/shadcn.png" alt="shadcn"/>
+                        <AvatarFallback>LR</AvatarFallback>
+                    </Avatar>
+                </span>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
                 <DropdownMenuGroup>

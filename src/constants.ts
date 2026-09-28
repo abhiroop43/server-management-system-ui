@@ -1,0 +1,1 @@
+export const API_BASE_URL = 'https://abhiroop43-server-mgmt-api-fpgyh9bsd0caevah.canadacentral-01.azurewebsites.net'
