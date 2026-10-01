@@ -1,7 +1,9 @@
 import {API_BASE_URL} from "@/constants.ts";
+import {clearSession} from "@/services/session.ts";
+import {apiFetch} from "@/services/api-client.ts";
 
 export async function loginUser(email: string, password: string) {
-    const response = await fetch(`${API_BASE_URL}/auth/login`, {
+    const response = await apiFetch(`${API_BASE_URL}/auth/login`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({email, password}),
@@ -19,7 +21,7 @@ export async function loginUser(email: string, password: string) {
 
 export async function validateToken(token: string): Promise<Response> {
     // console.log('Validating token:', token)
-    return await fetch(`${API_BASE_URL}/auth/validate`, {
+    return await apiFetch(`${API_BASE_URL}/auth/validate`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`},
         body: JSON.stringify({token}),
@@ -31,8 +33,7 @@ export function checkAuthStatus(): boolean {
 }
 
 export function logout() {
-    localStorage.removeItem('auth-token')
-    localStorage.removeItem('user')
+    clearSession()
 }
 
 export function getUser() {

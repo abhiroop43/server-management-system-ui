@@ -1,4 +1,4 @@
-import {ChevronRightIcon, Server} from "lucide-react"
+import {Edit3Icon, Globe2, HardDrive, Server, Trash} from "lucide-react"
 
 import {Item, ItemActions, ItemContent, ItemDescription, ItemMedia, ItemTitle,} from "@/components/ui/item"
 import type {ServerSummary} from "@/models/server-summary.ts";
@@ -25,10 +25,22 @@ const ServerCard = ({server}: ServerCardProps) => {
             </ItemContent>
             <ItemActions>
                 <Link to={'/edit-server/$serverId'} params={{serverId: server.id}}>
-                    <Button variant={"noShadow"} size="icon" className="rounded-full">
-                        <ChevronRightIcon className="size-4"/>
+                    <Button variant={"noShadow"} size="icon" className="rounded-full bg-white">
+                        <Edit3Icon className="size-4"/>
                     </Button>
                 </Link>
+
+                <Button variant={"noShadow"} size="icon" className="rounded-full bg-red-500 text-white">
+                    <Trash className="size-4"/>
+                </Button>
+
+                <Button variant={"noShadow"} size="icon" className="rounded-full">
+                    <HardDrive className="size-4"/>
+                </Button>
+
+                <Button variant={"noShadow"} size="icon" className="rounded-full">
+                    <Globe2 className="size-4"/>
+                </Button>
             </ItemActions>
         </Item>
     )
