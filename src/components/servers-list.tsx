@@ -8,7 +8,7 @@ export interface ServersListProps {
 
 const ServersList = ({servers}: ServersListProps) => {
     return (
-        <ItemGroup className="max-w-sm">
+        <ItemGroup className="w-full md:px-20">
             {servers.map(server => (
                 <ServerCard server={server} key={server.id}/>
             ))}

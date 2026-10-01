@@ -16,6 +16,7 @@ import { Route as LookupsConfigurationRouteImport } from './routes/lookups-confi
 import { Route as ServersRouteImport } from './routes/servers'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as UsersManagementRouteImport } from './routes/users-management'
+import { Route as EditServerServerIdRouteImport } from './routes/edit-server.$serverId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -52,6 +53,11 @@ const UsersManagementRoute = UsersManagementRouteImport.update({
   path: '/users-management',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EditServerServerIdRoute = EditServerServerIdRouteImport.update({
+  id: '/edit-server/$serverId',
+  path: '/edit-server/$serverId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -61,6 +67,7 @@ export interface FileRoutesByFullPath {
   '/servers': typeof ServersRoute
   '/signup': typeof SignupRoute
   '/users-management': typeof UsersManagementRoute
+  '/edit-server/$serverId': typeof EditServerServerIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -70,6 +77,7 @@ export interface FileRoutesByTo {
   '/servers': typeof ServersRoute
   '/signup': typeof SignupRoute
   '/users-management': typeof UsersManagementRoute
+  '/edit-server/$serverId': typeof EditServerServerIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -80,6 +88,7 @@ export interface FileRoutesById {
   '/servers': typeof ServersRoute
   '/signup': typeof SignupRoute
   '/users-management': typeof UsersManagementRoute
+  '/edit-server/$serverId': typeof EditServerServerIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -91,6 +100,7 @@ export interface FileRouteTypes {
     | '/servers'
     | '/signup'
     | '/users-management'
+    | '/edit-server/$serverId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -100,6 +110,7 @@ export interface FileRouteTypes {
     | '/servers'
     | '/signup'
     | '/users-management'
+    | '/edit-server/$serverId'
   id:
     | '__root__'
     | '/'
@@ -109,6 +120,7 @@ export interface FileRouteTypes {
     | '/servers'
     | '/signup'
     | '/users-management'
+    | '/edit-server/$serverId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -119,6 +131,7 @@ export interface RootRouteChildren {
   ServersRoute: typeof ServersRoute
   SignupRoute: typeof SignupRoute
   UsersManagementRoute: typeof UsersManagementRoute
+  EditServerServerIdRoute: typeof EditServerServerIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -172,6 +185,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UsersManagementRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/edit-server/$serverId': {
+      id: '/edit-server/$serverId'
+      path: '/edit-server/$serverId'
+      fullPath: '/edit-server/$serverId'
+      preLoaderRoute: typeof EditServerServerIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -183,6 +203,7 @@ const rootRouteChildren: RootRouteChildren = {
   ServersRoute: ServersRoute,
   SignupRoute: SignupRoute,
   UsersManagementRoute: UsersManagementRoute,
+  EditServerServerIdRoute: EditServerServerIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
