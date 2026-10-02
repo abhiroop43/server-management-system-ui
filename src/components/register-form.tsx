@@ -62,7 +62,8 @@ export function RegisterForm({
                                 mode="single"
                                 selected={date}
                                 onSelect={setDate}
-                                captionLayout={"dropdown"}
+                                className="rounded-lg border"
+                                captionLayout="dropdown"
                             />
                         </PopoverContent>
                     </Popover>
