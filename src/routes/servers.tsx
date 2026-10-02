@@ -1,6 +1,5 @@
 import {createFileRoute, redirect} from '@tanstack/react-router'
 import ServersList from "@/components/servers-list.tsx";
-import {useEffect, useState} from "react";
 import type {ServerSummary} from "@/models/server-summary.ts";
 import {getServersList} from "@/services/server.ts";
 import type {ListData} from "@/models/list-data.ts";
@@ -17,24 +16,17 @@ export const Route = createFileRoute('/servers')({
             })
         }
     },
+    loader: async () => {
+        const response = await getServersList()
+        const data: ApiResponse<ListData<ServerSummary>> = await response.json()
+
+        return data.detail.data.data
+    },
     component: Servers,
 })
 
 function Servers() {
-    const [servers, setServers] = useState<ServerSummary[]>([])
-
-
-    useEffect(
-        () => {
-            getServersList()
-                .then(response => response.json())
-                .then((data: ApiResponse<ListData<ServerSummary>>) => {
-                    console.log(data);
-                    setServers(data.detail.data.data);
-                })
-        },
-        []
-    )
+    const servers = Route.useLoaderData()
 
     return (
         <div className="p-2">
